@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDom from 'react-dom';
 
-var HelloWorld = React.createClass({
-	render: function() {
+class HelloWorld extends Component {
+	render () {
 		return <p>hello world</p>;
 	}
-});
+}
 
 ReactDom.render(<HelloWorld />, document.getElementById('app-host'));

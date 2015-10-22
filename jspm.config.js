@@ -5,9 +5,16 @@ System.config({
   babelOptions: {
     "optional": [
       "runtime",
-      "optimisation.modules.system"
+      "optimisation.modules.system",
+      "es7.classProperties",
+      "es7.decorators"
     ],
     "blacklist": []
+  },
+  meta: {
+    'core-js/library/modules/$.global': {
+      esmExports: false
+    }
   },
   paths: {
     "github:*": "jspm_packages/github/*",

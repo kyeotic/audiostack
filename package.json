@@ -8,7 +8,10 @@
   },
   "author": "",
   "license": "MIT",
-  "devDependencies": {},
+  "devDependencies": {
+    "express": "^4.13.3",
+    "pm2": "^0.15.7"
+  },
   "jspm": {
     "configFile": "jspm.config.js",
     "dependencies": {
