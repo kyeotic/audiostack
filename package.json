@@ -15,8 +15,10 @@
   "jspm": {
     "configFile": "jspm.config.js",
     "dependencies": {
+      "localforage": "npm:localforage@^1.3.0",
       "react": "npm:react@^0.14.0",
-      "react-dom": "npm:react-dom@^0.14.0"
+      "react-dom": "npm:react-dom@^0.14.0",
+      "react-file-input": "npm:react-file-input@^0.2.5"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",
