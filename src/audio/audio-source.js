@@ -9,5 +9,6 @@ export function sourceFromAudioBuffer(audioBuffer) {
 }
 
 export function sourceFromBuffer(buffer) {
-	return bufferToAudioBuffer(buffer).then(sourceFromAudioBuffer);
+	return bufferToAudioBuffer(buffer)
+		  .then(sourceFromAudioBuffer);
 }
