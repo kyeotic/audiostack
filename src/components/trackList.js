@@ -16,8 +16,8 @@ export default class TrackList extends Component {
 		const {onDecodeClick} = this.props;
 		return (
 			<ul>
-				{ this.props.tracks.map((track, index) => 
-					<li key={index}>
+				{ this.props.tracks.map((track) => 
+					<li key={track.id}>
 						<Track {...track }
 							onDecodeClick={() => onDecodeClick(track.id)} />
 					</li>
