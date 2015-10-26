@@ -18,7 +18,11 @@
       "localforage": "npm:localforage@^1.3.0",
       "react": "npm:react@^0.14.0",
       "react-dom": "npm:react-dom@^0.14.0",
-      "react-file-input": "npm:react-file-input@^0.2.5"
+      "react-file-input": "npm:react-file-input@^0.2.5",
+      "react-redux": "npm:react-redux@^4.0.0",
+      "redux": "npm:redux@^3.0.4",
+      "redux-thunk": "npm:redux-thunk@^1.0.0",
+      "shortid": "npm:shortid@^2.2.4"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",

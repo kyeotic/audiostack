@@ -26,9 +26,13 @@ Actions
 
 * Track Importer
 	* Select Song File
+	* Read Song (Start Async)
+	* Receive Song (Finish Async)
+	* Recive Song Error (Error Async)
 * Track List
 	* Delete Track
-	* Load (Decode) Track
+	* Load (Decode) Track (Start Async)
+	* Recieve Load Track (Finish Async)
 * Track Deck
 	* Delete Track
 	* Create Slice
