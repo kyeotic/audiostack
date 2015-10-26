@@ -13,13 +13,13 @@ export default class TrackList extends Component {
 	}
 
 	render() {
+		const {onDecodeClick} = this.props;
 		return (
 			<ul>
 				{ this.props.tracks.map((track, index) => 
-					<li>
+					<li key={index}>
 						<Track {...track }
-							key={index}
-							onDecodeClick={() => this.props.onDecodeClick(track.id)} />
+							onDecodeClick={() => onDecodeClick(track.id)} />
 					</li>
 				)}
 			</ul>

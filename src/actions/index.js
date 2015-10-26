@@ -22,10 +22,10 @@ export const STOP_AUDIO_SLICE = 'STOP_AUDIO_SLICE';
 //Song File
 //
 function readSongFile (track) {
-	return { type: READ_SONG, track };
+	return { type: READ_SONG_FILE, track };
 };
 function readSongSuccess (trackId, buffer) {
-	return { type: READ_SONG_SUCCESS, trackId, buffer };
+	return { type: READ_SONG_FILE_SUCCESS, trackId, buffer };
 };
 export function loadSongFile (file) {
 	const track = {
@@ -36,7 +36,8 @@ export function loadSongFile (file) {
 		source: null,
 		buffer: null
 	};
-	return dispatch => {		
+	return dispatch => {
+		console.log('loading', file)
 		dispatch(readSongFile(track));
 		return bufferFromFile(file)
 			.then(buffer =>

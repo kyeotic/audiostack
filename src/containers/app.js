@@ -5,13 +5,15 @@ import TrackAdd from 'components/trackAdd';
 import TrackList from 'components/trackList';
 
 @connect(state => ({
-	tracks: Object.keys(state.tracksById).map(key => {
-		return {
-			id: key,
-			...state.tracksById[key]
-		};
-	})
-}))
+		tracks: Object.keys(state.tracksById).map(key => {
+			return {
+				id: key,
+				...state.tracksById[key]
+			};
+		})
+	}),
+	{ loadSongFile, decodeTrack }
+)
 export default class App extends Component {
 	static propTypes = {
 		tracks: PropTypes.arrayOf(PropTypes.shape({
@@ -21,7 +23,7 @@ export default class App extends Component {
 		}).isRequired).isRequired
 	}
 	render() {
-		const { dispatch, tracks } = this.props;
+		const { loadSongFile, decodeTrack, tracks } = this.props;
 
 		return (
 			<div>

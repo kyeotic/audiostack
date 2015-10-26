@@ -16,11 +16,11 @@ export default class Track extends Component {
 	}
 
 	playTrack() {
-		this.source.start(0);
+		this.props.source.start(0);
 	}
 
 	decodeTrack() {
-		this.onDecodeClick();
+		this.props.onDecodeClick();
 	}
 
 	render() {
