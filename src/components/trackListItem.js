@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class Track extends Component {
+export default class TrackListItem extends Component {
 	static propTypes = {
 		onDecodeClick: PropTypes.func.isRequired,
 		id: PropTypes.string.isRequired,

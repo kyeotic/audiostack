@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Track from './track';
+import TrackListItem from './trackListItem';
 
 export default class TrackList extends Component {
 	static propTypes = {
@@ -18,7 +18,7 @@ export default class TrackList extends Component {
 			<ul>
 				{ this.props.tracks.map((track) => 
 					<li key={track.id}>
-						<Track {...track }
+						<TrackListItem {...track }
 							onDecodeClick={() => onDecodeClick(track.id)} />
 					</li>
 				)}

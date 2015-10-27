@@ -1,16 +1,30 @@
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { loadSongFile, decodeTrack } from 'actions/index';
+import TrackAdd from 'components/trackAdd';
+import TrackList from 'components/trackList';
 
-class Editor extends Component {
-	static propTypes = {
-		onDecodeClick: PropTypes.func.isRequired,
-		tracks: PropTypes.arrayOf(PropTypes.shape({
-			filename: PropTypes.string.isRequired,
-			isDecoded: PropTypes.bool.isRequired,
-			isDecoding: PropTypes.bool.isRequired
-		}).isRequired).isRequired
-	}
+@connect(state => ({
+		tracks: Object.keys(state.tracksById).map(key => {
+			return {
+				id: key,
+				...state.tracksById[key]
+			};
+		})
+	}),
+	{ loadSongFile, decodeTrack }
+)
+export default class Editor extends Component {
 	
 	render() {
+		const { loadSongFile, decodeTrack, tracks } = this.props;
 
+		return (
+			<div>
+				<TrackAdd onChange={loadSongFile} />
+				<TrackList onDecodeClick={decodeTrack} 
+							tracks={this.props.tracks} />
+			</div>			
+		);
 	}
 }
