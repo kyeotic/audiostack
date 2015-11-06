@@ -9,11 +9,11 @@ function tracksById(state = { }, action) {
 	switch (action.type) {
 	case READ_SONG_FILE:
 		return Object.assign({}, state, {
-			[action.track.id]: Object.assign({}, action.track)
+			[action.payload.id]: Object.assign({}, action.payload)
 		});
 	case READ_SONG_FILE_SUCCESS:
 		return Object.assign({}, state, {
-			[action.trackId]: Object.assign({}, state[action.track.id], action.track)
+			[action.payload.id]: Object.assign({}, state[action.payload.id], action.payload)
 		});
 	default:
 		return state;

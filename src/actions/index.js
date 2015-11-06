@@ -1,4 +1,3 @@
-export * from './readSong';
 export * from './tracks';
 
 //Unassigned
