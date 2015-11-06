@@ -6,9 +6,7 @@ export default class TrackList extends Component {
 		onDecodeClick: PropTypes.func.isRequired,
 		tracks: PropTypes.arrayOf(PropTypes.shape({
 			id: PropTypes.string.isRequired,
-			filename: PropTypes.string.isRequired,
-			isDecoded: PropTypes.bool.isRequired,
-			isDecoding: PropTypes.bool.isRequired
+			filename: PropTypes.string.isRequired
 		}).isRequired).isRequired
 	}
 

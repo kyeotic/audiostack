@@ -1,4 +1,5 @@
 import {bufferToBase64, base64ToBuffer } from 'audio/audio-buffer-encoder';
+import { sourceFromBuffer } from 'audio/audio-source';
 import localforage from 'localforage';
 
 export function saveTrack(track) {
@@ -6,7 +7,12 @@ export function saveTrack(track) {
 }
 
 export function loadTrack(trackId) {
-	return localforage.getItem(trackId);
+	return localforage.getItem(trackId)
+			.then(track => sourceFromBuffer(track.buffer)
+							.then(source => {
+								track.source = source;
+								return track;
+							}));
 }
 
 export function getTrackIds() {

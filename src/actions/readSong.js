@@ -1,6 +1,8 @@
 import shortId from 'shortid';
 import { bufferFromFile } from 'audio/audio-file-decoder';
-import { saveTrack, loadTrackBuffer} from 'audio/audio-store';
+import { sourceFromBuffer } from 'audio/audio-source';
+import { saveTrack } from 'audio/audio-store';
+import readTags from 'audio/tag-reader';
 
 export const READ_SONG_FILE  = 'READ_SONG_FILE';
 export const READ_SONG_FILE_SUCCESS = 'READ_SONG_FILE_SUCCESS';
@@ -10,46 +12,28 @@ export const READ_SONG_STORE_SUCCESS = 'READ_SONG_STORE_SUCCESS';
 function readSongFile (track) {
 	return { type: READ_SONG_FILE, track };
 };
-function readSongSuccess (trackId, buffer) {
-	return { type: READ_SONG_FILE_SUCCESS, trackId, buffer };
+function readSongSuccess (track) {
+	return { type: READ_SONG_FILE_SUCCESS, track };
 };
 export function loadSongFile (file) {
-	const track = {
+	let track = {
 		id: shortId.generate(),
 		filename: file.name,
-		isDecoded: false,
-		isDecoding: false,
+		artist: null,
+		album: null,
+		title: null,
 		source: null,
 		buffer: null
 	};
 	return dispatch => {
-		dispatch(readSongFile(track));
+		dispatch(readSongFile(Object.assign({}, track)));
 		return bufferFromFile(file)
-			.then(buffer => saveTrack(Object.assign({}, track, { buffer: buffer}))
-							.then(() => buffer))
-			.then(buffer => dispatch(readSongSuccess(track.id, buffer)));
+			.then(buffer => Object.assign(track, { buffer: buffer}))
+			.then(track => readTags(file)
+							.then(tags => Object.assign(track, tags)))
+			.then(track => saveTrack(track))
+			.then(track => sourceFromBuffer(track.buffer)
+							.then(source => Object.assign(track, { source: source})))
+			.then(track => dispatch(readSongSuccess(track)));
 	};
 };
-
-function readSongStore (track) {
-	return { type: READ_SONG_STORE, track };
-}
-function readSongStoreSuccess (track) {
-	return { type: READ_SONG_STORE_SUCCESS, track};
-};
-
-export function loadSongStore (trackId) {
-	const track = {
-		id: trackId,
-		filename: 'Loading from store',
-		isDecoded: false,
-		isDecoding: false,
-		source: null,
-		buffer: null
-	};
-	return dispatch => {
-		dispatch(readSongStore(track));
-		return loadTrackBuffer(trackId)
-			.then(track => dispatch(readSongStoreSuccess(track)));
-	};
-}

@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
+import readTags from 'audio/tag-reader';
 
 export default class TrackListItem extends Component {
 	static propTypes = {
 		onDecodeClick: PropTypes.func.isRequired,
 		id: PropTypes.string.isRequired,
-		filename: PropTypes.string.isRequired,
-		isDecoded: PropTypes.bool.isRequired,
-		isDecoding: PropTypes.bool.isRequired
+		filename: PropTypes.string.isRequired
 	}
 
 	constructor(...args) {
@@ -26,17 +25,12 @@ export default class TrackListItem extends Component {
 	render() {
 		let button;
 
-		if (this.props.isDecoding)
-			button = <button type="button" disabled={true}>Decoding...</button>;
-		else if (!this.props.isDecoded)
-			button = <button type="button" onClick={this.decodeTrack}>Decode</button>;
-		else
-			button = <button type="button" onClick={this.playTrack}>Play</button>;
-
 		return (
 			<div>
 				<h1>{this.props.filename} <small>{this.props.id}</small></h1>
-				{ button}
+				<p>{this.props.title}</p>
+				<p>{this.props.artist}</p>
+				<button type="button" onClick={this.playTrack}>Play</button>
 			</div>
 		);
 	}
