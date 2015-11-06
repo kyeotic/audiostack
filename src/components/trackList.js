@@ -3,7 +3,7 @@ import TrackListItem from './trackListItem';
 
 export default class TrackList extends Component {
 	static propTypes = {
-		onDecodeClick: PropTypes.func.isRequired,
+		onRemoveClick: PropTypes.func.isRequired,
 		tracks: PropTypes.arrayOf(PropTypes.shape({
 			id: PropTypes.string.isRequired,
 			filename: PropTypes.string.isRequired
@@ -11,13 +11,13 @@ export default class TrackList extends Component {
 	}
 
 	render() {
-		const {onDecodeClick} = this.props;
+		const {onRemoveClick} = this.props;
 		return (
 			<ul>
 				{ this.props.tracks.map((track) => 
 					<li key={track.id}>
-						<TrackListItem {...track }
-							onDecodeClick={() => onDecodeClick(track.id)} />
+						<TrackListItem {...track } 
+							onRemoveClick={() => onRemoveClick(track)} />
 					</li>
 				)}
 			</ul>

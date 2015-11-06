@@ -3,7 +3,7 @@ import readTags from 'audio/tag-reader';
 
 export default class TrackListItem extends Component {
 	static propTypes = {
-		onDecodeClick: PropTypes.func.isRequired,
+		onRemoveClick: PropTypes.func.isRequired,
 		id: PropTypes.string.isRequired,
 		filename: PropTypes.string.isRequired
 	}
@@ -11,15 +11,15 @@ export default class TrackListItem extends Component {
 	constructor(...args) {
 		super(...args);
 		this.playTrack = this.playTrack.bind(this);
-		this.decodeTrack = this.decodeTrack.bind(this);
+		this.removeTrack = this.removeTrack.bind(this);
 	}
 
 	playTrack() {
 		this.props.source.start(0);
 	}
 
-	decodeTrack() {
-		this.props.onDecodeClick();
+	removeTrack() {
+		this.props.onRemoveClick();
 	}
 
 	render() {
@@ -31,6 +31,7 @@ export default class TrackListItem extends Component {
 				<p>{this.props.title}</p>
 				<p>{this.props.artist}</p>
 				<button type="button" onClick={this.playTrack}>Play</button>
+				<button type="button" onClick={this.removeTrack}>Remove</button>
 			</div>
 		);
 	}

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import {
 	READ_SONG_FILE, READ_SONG_FILE_SUCCESS,
-	READ_SONG_STORE, READ_SONG_STORE_SUCCESS,
+	REMOVE_TRACK_START, REMOVE_TRACK_SUCCESS,
 	DECODE_TRACK, DECODE_TRACK_SUCCESS, PLAY_TRACK, STOP_TRACK
 } from 'actions/index';
 
@@ -15,6 +15,12 @@ function tracksById(state = { }, action) {
 		return Object.assign({}, state, {
 			[action.payload.id]: Object.assign({}, state[action.payload.id], action.payload)
 		});
+	case REMOVE_TRACK_START:
+		return state;
+	case REMOVE_TRACK_SUCCESS:
+		let newState = Object.assign({}, state);
+		delete newState[action.payload.id];
+		return newState;
 	default:
 		return state;
 	}

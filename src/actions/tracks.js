@@ -1,7 +1,7 @@
 import shortId from 'shortid';
 import { bufferFromFile } from 'audio/audio-file-decoder';
 import { sourceFromBuffer } from 'audio/audio-source';
-import { saveTrack } from 'audio/audio-store';
+import * as store from 'audio/audio-store';
 import readTags from 'audio/tag-reader';
 import actionCreator from './actionCreator';
 
@@ -33,14 +33,24 @@ export function loadSongFile (file) {
 			.then(buffer => Object.assign(track, { buffer: buffer}))
 			.then(track => readTags(file)
 							.then(tags => Object.assign(track, tags)))
-			.then(track => saveTrack(track))
+			.then(track => store.saveTrack(track))
 			.then(track => sourceFromBuffer(track.buffer)
 							.then(source => Object.assign(track, { source: source})))
 			.then(track => dispatch(readSongSuccess(track)));
 	};
 };
 
-
+//Remove
+//
+let removeTrackStart = actionCreator(REMOVE_TRACK_START);
+let removeTrackSuccess = actionCreator(REMOVE_TRACK_SUCCESS);
+export function removeTrack(track) {
+	return dispatch => {
+		dispatch(removeTrackStart(Object.assign({}, track)));
+		return store.removeTrack(track.id)
+			.then(() => dispatch(removeTrackSuccess(Object.assign({}, track))));
+	}
+}
 
 
 export function playTrack(trackId) {
