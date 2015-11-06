@@ -15,6 +15,10 @@ export function loadTrack(trackId) {
 							}));
 }
 
+export function removeTrack(trackId) {
+	return localforage.removeItem(trackId);
+}
+
 export function getTrackIds() {
 	return localforage.keys();
 }
