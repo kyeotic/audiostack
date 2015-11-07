@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 export default class TrackAdd extends Component {
 	static propTypes = {
+		displayName: 'TrackAdd',
 		onChange: PropTypes.func.isRequired
 	}
 	constructor(...args) {
