@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "lessc assets/less/app.less assets/css/app.css --source-map=assets/css/app.css.map --clean-css=\"--advanced\"",
+    "watch:css": "watch \"npm run build:css\" assets/less/",
     "lint": "eslint src"
   },
   "author": "",
@@ -13,7 +14,9 @@
     "babel-eslint": "^4.1.4",
     "eslint": "^1.9.0",
     "eslint-plugin-react": "^3.7.1",
-    "jspm": "^0.16.13"
+    "jspm": "^0.16.13",
+    "less": "^2.5.3",
+    "watch": "^0.16.0"
   },
   "jspm": {
     "configFile": "jspm.config.js",
