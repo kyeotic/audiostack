@@ -18,7 +18,10 @@ export default class Editor extends Component {
 	static propTypes = {
 		loadSongFile: PropTypes.func.isRequired,
 		removeTrack: PropTypes.func.isRequired,
-		tracks: PropTypes.func.isRequired
+		tracks: PropTypes.arrayOf(PropTypes.shape({
+			id: PropTypes.string.isRequired,
+			filename: PropTypes.string.isRequired
+		}).isRequired).isRequired
 	}
 	render() {
 		const { loadSongFile, removeTrack, tracks } = this.props;

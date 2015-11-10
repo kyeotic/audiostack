@@ -6,7 +6,9 @@ export default class TrackListItem extends Component {
 		filename: PropTypes.string.isRequired,
 		id: PropTypes.string.isRequired,
 		onRemoveClick: PropTypes.func.isRequired,
-		source: PropTypes.isRequired,
+		source: PropTypes.shape({
+			start: PropTypes.func
+		}),
 		title: PropTypes.string.isRequired
 	}
 
