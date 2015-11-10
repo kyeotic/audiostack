@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import readTags from 'audio/tag-reader';
 
 export default class TrackListItem extends Component {
 	static propTypes = {
-		onRemoveClick: PropTypes.func.isRequired,
+		artist: PropTypes.string.isRequired,
+		filename: PropTypes.string.isRequired,
 		id: PropTypes.string.isRequired,
-		filename: PropTypes.string.isRequired
+		onRemoveClick: PropTypes.func.isRequired,
+		source: PropTypes.isRequired,
+		title: PropTypes.string.isRequired
 	}
 
 	constructor(...args) {
@@ -30,8 +32,8 @@ export default class TrackListItem extends Component {
 				<h1>{this.props.filename} <small>{this.props.id}</small></h1>
 				<p>{this.props.title}</p>
 				<p>{this.props.artist}</p>
-				<button type="button" onClick={this.playTrack}>Play</button>
-				<button type="button" onClick={this.removeTrack}>Remove</button>
+				<button type="button" onClick={this.playTrack}>{'Play'}</button>
+				<button type="button" onClick={this.removeTrack}>{'Remove'}</button>
 			</div>
 		);
 	}

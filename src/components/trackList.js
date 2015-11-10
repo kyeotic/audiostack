@@ -14,10 +14,11 @@ export default class TrackList extends Component {
 		const {onRemoveClick} = this.props;
 		return (
 			<ul>
-				{ this.props.tracks.map((track) => 
+				{this.props.tracks.map((track) => 
 					<li key={track.id}>
 						<TrackListItem {...track } 
-							onRemoveClick={() => onRemoveClick(track)} />
+							onRemoveClick={() => onRemoveClick(track)} 
+						/>
 					</li>
 				)}
 			</ul>

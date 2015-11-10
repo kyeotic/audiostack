@@ -1,5 +1,5 @@
 export function bufferFromFile(file) {
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve) => {
 		var reader = new FileReader();
 		reader.onload = (e) => {
 			resolve(e.target.result);

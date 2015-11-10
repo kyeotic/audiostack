@@ -4,7 +4,7 @@ import App from './app';
 
 export default class Root extends Component {
 	static propTypes = {
-		store: PropTypes.object.isRequired
+		store: PropTypes.isRequired
 	}
 	render() {
 		const { store } = this.props;

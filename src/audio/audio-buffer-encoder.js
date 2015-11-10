@@ -12,7 +12,7 @@ export function bufferToBase64 (buffer) {
 
 export function base64ToBuffer (buffer) {
     let binary = window.atob(buffer);
-    let buffer = new ArrayBuffer(binary.length);
+    buffer = new ArrayBuffer(binary.length);
     let bytes = new Uint8Array(buffer);
     for (let i = 0; i < buffer.byteLength; i++) {
         bytes[i] = binary.charCodeAt(i) & 0xFF;

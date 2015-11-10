@@ -15,7 +15,11 @@ import TrackList from 'components/trackList';
 	{ loadSongFile, removeTrack }
 )
 export default class Editor extends Component {
-	
+	static propTypes = {
+		loadSongFile: PropTypes.func.isRequired,
+		removeTrack: PropTypes.func.isRequired,
+		tracks: PropTypes.func.isRequired
+	}
 	render() {
 		const { loadSongFile, removeTrack, tracks } = this.props;
 
@@ -23,7 +27,8 @@ export default class Editor extends Component {
 			<div>
 				<TrackAdd onChange={loadSongFile} />
 				<TrackList onRemoveClick={removeTrack} 
-							tracks={this.props.tracks} />
+					tracks={tracks} 
+				/>
 			</div>			
 		);
 	}
