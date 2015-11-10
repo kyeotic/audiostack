@@ -9,8 +9,9 @@ body
 
 #app-host
 	height 100%
+	min-height:100%
 	width 100%
-	position relative
+	position fixed
 	overflow hidden
 
 .editor-main
@@ -22,17 +23,27 @@ body
 	justify-content space-between
 	
 .editor-track-list
-	flex 1 content
+	flex 0 20%
 
 .editor-deck
-	flex 3 100%
+	flex 1
+	height 100%
 	border 1px solid grey
+	display flex
+	flex-flow column nowrap
 	
 .stage
 .slice-deck
 	border 1px solid grey
 	margin 5px
 	background-color #ccc
+	overflow auto
+	
+.stage	
+	flex 1
+	
+.slice-deck
+	flex 0 20%
 	
 .editor-track-list
 	border 1px solid grey

@@ -26,6 +26,9 @@ export default class Editor extends Component {
 	render() {
 		const { loadSongFile, removeTrack, tracks } = this.props;
 
+		let fill = Array.apply(null, new Array(100))
+					.map((i, n) => <p>{n}</p>);
+
 		return (
 			<div className="editor-main">
 				<div className="editor-track-list">
@@ -36,10 +39,11 @@ export default class Editor extends Component {
 				</div>
 				<div className="editor-deck">
 					<div className="stage">
-						{'Stage'}
+						<p>{'Stage'}</p>
+						{fill}
 					</div>
 					<div className="slice-deck">
-						{'Slice Deck'}
+						<p>{'Slice Deck'}</p>
 					</div>
 				</div>
 
