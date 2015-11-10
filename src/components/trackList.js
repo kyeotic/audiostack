@@ -13,9 +13,9 @@ export default class TrackList extends Component {
 	render() {
 		const {onRemoveClick} = this.props;
 		return (
-			<ul>
+			<ul className="track-list">
 				{this.props.tracks.map((track) => 
-					<li key={track.id}>
+					<li key={track.id} className="track-item">
 						<TrackListItem {...track } 
 							onRemoveClick={() => onRemoveClick(track)} 
 						/>

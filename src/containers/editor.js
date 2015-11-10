@@ -27,12 +27,23 @@ export default class Editor extends Component {
 		const { loadSongFile, removeTrack, tracks } = this.props;
 
 		return (
-			<div>
-				<TrackAdd onChange={loadSongFile} />
-				<TrackList onRemoveClick={removeTrack} 
-					tracks={tracks} 
-				/>
-			</div>			
+			<div className="editor-main">
+				<div className="editor-track-list">
+					<TrackList onRemoveClick={removeTrack} 
+						tracks={tracks} 
+					/>
+					<TrackAdd onChange={loadSongFile} />
+				</div>
+				<div className="editor-deck">
+					<div className="stage">
+						{'Stage'}
+					</div>
+					<div className="slice-deck">
+						{'Slice Deck'}
+					</div>
+				</div>
+
+			</div>		
 		);
 	}
 }

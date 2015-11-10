@@ -13,6 +13,10 @@ export default class TrackAdd extends Component {
 		//e.target.files.length = 0;
 	}
 	render () {
-		 return <input type="file" onChange={this.handleOnChange} />
+		 return (
+		 	<div className="track-add">
+		 		<input type="file" onChange={this.handleOnChange} />
+		 	</div>
+	 	);
 	}
 }
