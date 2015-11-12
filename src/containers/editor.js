@@ -27,7 +27,7 @@ export default class Editor extends Component {
 		const { loadSongFile, removeTrack, tracks } = this.props;
 
 		let fill = Array.apply(null, new Array(100))
-					.map((i, n) => <p>{n}</p>);
+					.map((i, n) => <p key={n}>{n}</p>);
 
 		return (
 			<div className="editor-main">

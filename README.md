@@ -1,12 +1,6 @@
 App Goals
 ===
 
-Tasks
-
-* Automatically decode all tracks on load
-* Save everything to localStorage
-* Load AND DECODE from localStorage
-
 
 Components
 
