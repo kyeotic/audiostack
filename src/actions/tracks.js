@@ -8,11 +8,11 @@ import actionCreator from './actionCreator';
 export const READ_SONG_FILE  = 'READ_SONG_FILE';
 export const READ_SONG_FILE_SUCCESS = 'READ_SONG_FILE_SUCCESS';
 
-export const LOAD_TRACK_BUFFER_START = 'LOAD_TRACK_BUFFER_START';
-export const LOAD_TRACK_BUFFER_SUCCESS = 'LOAD_TRACK_BUFFER_SUCCESS';
+export const LOAD_TRACK_SOURCE_START = 'LOAD_TRACK_SOURCE_START';
+export const LOAD_TRACK_SOURCE_SUCCESS = 'LOAD_TRACK_SOURCE_SUCCESS';
 
-export const UNLOAD_TRACK_BUFFER_START = 'UNLOAD_TRACK_BUFFER_START';
-export const UNLOAD_TRACK_BUFFER_SUCCESS = 'UNLOAD_TRACK_BUFFER_SUCCESS';
+export const UNLOAD_TRACK_SOURCE_START = 'UNLOAD_TRACK_SOURCE_START';
+export const UNLOAD_TRACK_SOURCE_SUCCESS = 'UNLOAD_TRACK_SOURCE_SUCCESS';
 
 export const REMOVE_TRACK_START = 'REMOVE_TRACK_START';
 export const REMOVE_TRACK_SUCCESS = 'REMOVE_TRACK_SUCCESS';
@@ -24,7 +24,7 @@ export const STOP_TRACK = 'STOP_TRACK';
 let readSongFile = actionCreator(READ_SONG_FILE);
 let readSongSuccess = actionCreator(READ_SONG_FILE_SUCCESS);
 
-export function loadSongFile (file) {
+export function loadSongFile(file) {
 	//Don't directly return this object, use Object.assign
 	//So that it can safely be modified by this function
 	let track = {
@@ -41,6 +41,7 @@ export function loadSongFile (file) {
 		return readTags(file)
 			.then(tags => Object.assign(track, tags))
 			.then(track => bufferFromFile(file)
+							.then(buffer => store.saveTrackBuffer(track.id, buffer))
 							.then(sourceFromBuffer)
 							.then(source => Object.assign(track, { source, isLoaded: true })))
 			.then(store.saveTrack)			
@@ -50,24 +51,26 @@ export function loadSongFile (file) {
 
 //Load
 //
-let loadTrack = actionCreator(LOAD_TRACK_BUFFER_START);
-let loadTrackSuccess = actionCreator(LOAD_TRACK_BUFFER_SUCCESS, (trackId, buffer) => ({trackId, buffer}));
+let loadTrack = actionCreator(LOAD_TRACK_SOURCE_START);
+let loadTrackSuccess = actionCreator(LOAD_TRACK_SOURCE_SUCCESS, 
+									(id, source) => ({id, source}));
 
-export function loadTrackBuffer (trackId) {
+export function loadTrackSource(trackId) {
 	return dispatch => {
 		dispatch(loadTrack(trackId));
 		return store.loadTrackBuffer(trackId)
-			.then(buffer => dispatch(loadTrackSuccess(trackId, buffer)));
+			.then(sourceFromBuffer)
+			.then(source => dispatch(loadTrackSuccess(trackId, source)));
 	}
 }
 
-let unloadTrack = actionCreator(UNLOAD_TRACK_BUFFER_START);
-let unloadTackSuccess = actionCreator(UNLOAD_TRACK_BUFFER_SUCCESS);
+let unloadTrack = actionCreator(UNLOAD_TRACK_SOURCE_START);
+let unloadTackSuccess = actionCreator(UNLOAD_TRACK_SOURCE_SUCCESS);
 
-export function unloadTrackBuffer(trackId) {
+export function unloadTrackSource(trackId) {
 	return (dispatch, getState) => {
 		dispatch(unloadTrack(trackId));
-		let unloadedTrack = Object.assign({}, getState().tracks[trackId]);
+		let unloadedTrack = Object.assign({}, getState().tracksById[trackId]);
 		unloadedTrack.isLoaded = false;
 		return store.saveTrack(unloadedTrack)
 			.then(() => dispatch(unloadTackSuccess(trackId)));

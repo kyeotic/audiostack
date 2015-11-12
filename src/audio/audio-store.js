@@ -12,27 +12,24 @@ export function saveTrack(track) {
 }
 
 export function loadTrack(trackId) {
-	return trackStore.getItem(trackId)
-			.then(track => sourceFromBuffer(track.buffer)
-							.then(source => {
-								track.source = source;
-								return track;
-							}));
+	return trackStore.getItem(trackId);
 }
 
 export function saveTrackBuffer(trackId, buffer) {
-	return trackBufferStore.setItem(trackId, buffer);
+	return trackBufferStore.setItem(trackId, {buffer})
+		.then(() => buffer);
 }
 
 export function loadTrackBuffer(trackId) {
-	return trackBufferStore.getItem(trackId);
+	return trackBufferStore.getItem(trackId)
+		.then(r => r.buffer);
 }
 
 export function removeTrack(trackId) {
 	return Promise.all([
 		trackStore.removeItem(trackId),
 		trackBufferStore.removeItem(trackId)
-	]):
+	]);
 }
 
 export function getTrackIds() {
