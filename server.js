@@ -1,4 +1,4 @@
-var port = process.env.PORT || 9000,
+gvar port = process.env.PORT || 9000,
     clientDir = __dirname + '/src/',
     assetDir = __dirname + '/assets',
     jspmConfigName = '/jspm.config.js',

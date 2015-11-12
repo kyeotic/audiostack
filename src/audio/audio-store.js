@@ -1,12 +1,18 @@
 import { sourceFromBuffer } from 'audio/audio-source';
 import localforage from 'localforage';
 
+const trackStore = localforage.createInstance({name: 'tracks'});
+const trackBufferStore = localforage.createInstance({name: 'buffers'});
+
 export function saveTrack(track) {
-	return localforage.setItem(track.id, track);
+	let trackToSave = Object.assign({}, track);
+	delete trackToSave.source;
+	return trackStore.setItem(track.id, trackToSave)
+		.then(() => track);
 }
 
 export function loadTrack(trackId) {
-	return localforage.getItem(trackId)
+	return trackStore.getItem(trackId)
 			.then(track => sourceFromBuffer(track.buffer)
 							.then(source => {
 								track.source = source;
@@ -14,15 +20,38 @@ export function loadTrack(trackId) {
 							}));
 }
 
+export function saveTrackBuffer(trackId, buffer) {
+	return trackBufferStore.setItem(trackId, buffer);
+}
+
+export function loadTrackBuffer(trackId) {
+	return trackBufferStore.getItem(trackId);
+}
+
 export function removeTrack(trackId) {
-	return localforage.removeItem(trackId);
+	return Promise.all([
+		trackStore.removeItem(trackId),
+		trackBufferStore.removeItem(trackId)
+	]):
 }
 
 export function getTrackIds() {
-	return localforage.keys();
+	return trackStore.keys();
 }
 
 export function loadAllTracks() {
 	return getTrackIds()
-		.then(keys => Promise.all(keys.map(loadTrack)));
+		.then(keys => Promise.all(keys.map(loadTrack)))
+		.then(tracks => Promise.all(tracks.map(track => {
+			if (track.isLoaded)
+				return new Promise((resolve) => {
+					loadTrackBuffer(track.id)
+						.then(sourceFromBuffer)
+						.then(source => {
+							track.source = source;
+							resolve(track);
+						});
+				});
+			return Promise.resolve(track);
+		})))
 }
