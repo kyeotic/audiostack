@@ -15,6 +15,7 @@
     "eslint": "^1.9.0",
     "eslint-plugin-react": "^3.7.1",
     "jspm": "^0.16.13",
+    "stylus": "^0.52.4",
     "watch": "^0.16.0"
   },
   "jspm": {
