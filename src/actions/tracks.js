@@ -56,11 +56,15 @@ let loadTrackSuccess = actionCreator(LOAD_TRACK_SOURCE_SUCCESS,
 									(id, source) => ({id, source}));
 
 export function loadTrackSource(trackId) {
-	return dispatch => {
+	return (dispatch, getState) => {
+		const track = getState().tracksById[trackId];
 		dispatch(loadTrack(trackId));
 		return store.loadTrackBuffer(trackId)
 			.then(sourceFromBuffer)
-			.then(source => dispatch(loadTrackSuccess(trackId, source)));
+			.then(source => {
+				return store.saveTrack(Object.assign({}, track, {isLoaded: true}))
+					.then(() => dispatch(loadTrackSuccess(trackId, source)));
+			});
 	}
 }
 

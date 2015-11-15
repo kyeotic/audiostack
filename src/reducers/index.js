@@ -27,7 +27,7 @@ function tracksById(state = { }, action) {
 		return state;
 	case LOAD_TRACK_SOURCE_SUCCESS:
 		return Object.assign({}, state, {
-			[action.payload.id]: Object.assign({}, state[action.payload.id], {source: action.payload.source})
+			[action.payload.id]: Object.assign({}, state[action.payload.id], {source: action.payload.source, isLoaded: true})
 		});
 	case UNLOAD_TRACK_SOURCE_START:
 		return state;
