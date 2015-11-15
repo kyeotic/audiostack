@@ -32,10 +32,12 @@ function tracksById(state = { }, action) {
 	case UNLOAD_TRACK_SOURCE_START:
 		return state;
 	case UNLOAD_TRACK_SOURCE_SUCCESS:
-		let newTrack = Object.assign({}, state[action.payload.id]);
+		let newTrack = Object.assign({}, state[action.payload], {
+			isLoaded: false
+		});
 		delete newTrack.source;
 		return Object.assign({}, state, {
-			[action.payload.id]: newTrack
+			[action.payload]: newTrack
 		});
 	default:
 		return state;
