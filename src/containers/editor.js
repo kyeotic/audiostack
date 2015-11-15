@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { loadSongFile, removeTrack } from 'actions/index';
+import { loadSongFile, removeTrack,
+		 loadTrackSource, unloadTrackSource } from 'actions/index';
 import TrackAdd from 'components/trackAdd';
 import TrackList from 'components/trackList';
 
@@ -12,19 +13,21 @@ import TrackList from 'components/trackList';
 			};
 		})
 	}),
-	{ loadSongFile, removeTrack }
+	{ loadSongFile, removeTrack, loadTrackSource, unloadTrackSource }
 )
 export default class Editor extends Component {
 	static propTypes = {
 		loadSongFile: PropTypes.func.isRequired,
+		loadTrackSource: PropTypes.func.isRequired,
 		removeTrack: PropTypes.func.isRequired,
 		tracks: PropTypes.arrayOf(PropTypes.shape({
 			id: PropTypes.string.isRequired,
 			filename: PropTypes.string.isRequired
-		}).isRequired).isRequired
+		}).isRequired).isRequired,
+		unloadTrackSource: PropTypes.func.isRequired
 	}
 	render() {
-		const { loadSongFile, removeTrack, tracks } = this.props;
+		const { loadSongFile, removeTrack, tracks, loadTrackSource, unloadTrackSource } = this.props;
 
 		let fill = Array.apply(null, new Array(100))
 					.map((i, n) => <p key={n}>{n}</p>);
@@ -32,7 +35,10 @@ export default class Editor extends Component {
 		return (
 			<div className="editor-main">
 				<div className="editor-track-list">
-					<TrackList onRemoveClick={removeTrack} 
+					<TrackList 
+						onRemoveClick={removeTrack} 
+						onLoadClick={loadTrackSource} 
+						onUnloadClick={unloadTrackSource} 
 						tracks={tracks} 
 					/>
 					<TrackAdd onChange={loadSongFile} />
