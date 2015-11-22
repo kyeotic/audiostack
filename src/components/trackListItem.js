@@ -18,30 +18,31 @@ export default class TrackListItem extends Component {
 
 	constructor(...args) {
 		super(...args);
-		this.playTrack = this.playTrack.bind(this);
-		this.stopTrack = this.stopTrack.bind(this);
-		this.removeTrack = this.removeTrack.bind(this);
-		this.loadTrack = this.loadTrack.bind(this);
-		this.unloadTrack = this.unloadTrack.bind(this);
+		this.isShowingSlice = false;
+
 	}
 
-	playTrack() {
+	createSlice = (...args) => {
+		console.log('slicing', ...args);
+	}
+
+	playTrack = () => {
 		this.props.source.start(0);
 	}
 
-	stopTrack() {
+	stopTrack = () => {
 		this.props.source.stop();
 	}
 
-	loadTrack() {
+	loadTrack = () => {
 		this.props.onLoadClick();
 	}
 
-	unloadTrack() {
+	unloadTrack = () => {
 		this.props.onUnloadClick();
 	}
 
-	removeTrack() {
+	removeTrack = () => {
 		this.props.onRemoveClick();
 	}
 
