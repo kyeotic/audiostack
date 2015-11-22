@@ -21,8 +21,10 @@ export default class Editor extends Component {
 		loadTrackSource: PropTypes.func.isRequired,
 		removeTrack: PropTypes.func.isRequired,
 		tracks: PropTypes.arrayOf(PropTypes.shape({
+			artist: PropTypes.string,
 			id: PropTypes.string.isRequired,
-			filename: PropTypes.string.isRequired
+			filename: PropTypes.string.isRequired,
+			title: PropTypes.string
 		}).isRequired).isRequired,
 		unloadTrackSource: PropTypes.func.isRequired
 	}

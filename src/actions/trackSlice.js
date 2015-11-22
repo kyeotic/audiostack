@@ -11,7 +11,7 @@ export const CREATE_SLICE_SUCCESS = 'CREATE_SLICE_SUCCESS';
 export let showTrackSlice = actionCreator(SHOW_TRACK_SLICE);
 export let hideTrackSlice = actionCreator(HIDE_TRACK_SLICE);
 
-let createSliceStart = actionCreator(CREATE_SLICE_START);
+let createSliceStart = actionCreator(CREATE_SLICE_START, trackId => ({trackId}));
 let createSliceSuccess = actionCreator(CREATE_SLICE_SUCCESS);
 
 export function createSlice(trackId, start, length) {
@@ -20,3 +20,4 @@ export function createSlice(trackId, start, length) {
 		dispatch(createSliceStart(trackId));
 	}
 }
+

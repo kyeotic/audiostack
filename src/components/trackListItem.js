@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 export default class TrackListItem extends Component {
 	static propTypes = {
-		artist: PropTypes.string.isRequired,
+		artist: PropTypes.string,
 		filename: PropTypes.string.isRequired,
 		id: PropTypes.string.isRequired,
 		isLoaded: PropTypes.bool.isRequired,
@@ -13,7 +13,7 @@ export default class TrackListItem extends Component {
 			start: PropTypes.func,
 			stop: PropTypes.func
 		}),
-		title: PropTypes.string.isRequired
+		title: PropTypes.string
 	}
 
 	constructor(...args) {

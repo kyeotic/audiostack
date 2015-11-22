@@ -21,7 +21,7 @@ export const STOP_TRACK = 'STOP_TRACK';
 
 //Read
 //
-let readSongFile = actionCreator(READ_SONG_FILE);
+let readSongFile = actionCreator(READ_SONG_FILE, track => track);
 let readSongSuccess = actionCreator(READ_SONG_FILE_SUCCESS);
 
 export function loadSongFile(file) {
