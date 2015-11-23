@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import TrackSlice from './trackSlice';
 
 export default class TrackListItem extends Component {
 	static propTypes = {
@@ -18,8 +19,7 @@ export default class TrackListItem extends Component {
 
 	constructor(...args) {
 		super(...args);
-		this.isShowingSlice = false;
-
+		this.isShowingSlice = true;
 	}
 
 	createSlice = (...args) => {
@@ -47,24 +47,29 @@ export default class TrackListItem extends Component {
 	}
 
 	render() {
-		let buttons = [];
-
 		if (this.props.isLoaded) {
-			buttons.push(<button type="button" key="play" onClick={this.playTrack}>{'Play'}</button>);
-			buttons.push(<button type="button" key="stop" onClick={this.stopTrack}>{'Stop'}</button>);
-			buttons.push(<button type="button" key="unload" onClick={this.unloadTrack}>{'Unload'}</button>);
+			return (
+				<div>
+					<h1>{this.props.filename} <small>{this.props.id}</small></h1>
+					<p>{this.props.title}</p>
+					<p>{this.props.artist}</p>
+					<button type="button" onClick={this.playTrack}>{'Play'}</button>
+					<button type="button" key="stop" onClick={this.stopTrack}>{'Stop'}</button>
+					<button type="button" key="unload" onClick={this.unloadTrack}>{'Unload'}</button>
+					<button type="button" onClick={this.removeTrack}>{'Remove'}</button>
+					{this.isShowingSlice ? <TrackSlice onCreate={this.createSlice} source={this.props.source} /> : null}
+				</div>
+			);
 		} else {
-			buttons.push(<button type="button" key="load" onClick={this.loadTrack}>{'Load'}</button>);
+			return (
+				<div>
+					<h1>{this.props.filename} <small>{this.props.id}</small></h1>
+					<p>{this.props.title}</p>
+					<p>{this.props.artist}</p>
+					<button type="button" key="load" onClick={this.loadTrack}>{'Load'}</button>
+					<button type="button" onClick={this.removeTrack}>{'Remove'}</button>
+				</div>
+			);
 		}
-
-		return (
-			<div>
-				<h1>{this.props.filename} <small>{this.props.id}</small></h1>
-				<p>{this.props.title}</p>
-				<p>{this.props.artist}</p>
-				{buttons}
-				<button type="button" onClick={this.removeTrack}>{'Remove'}</button>
-			</div>
-		);
 	}
 }

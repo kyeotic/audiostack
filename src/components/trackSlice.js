@@ -1,33 +1,53 @@
 import React, { Component, PropTypes } from 'react';
-import ReactSlider from 'ReactSlider';
+import ReactSlider from 'react-slider';
+import { getAudioSource } from 'audio/audio-context';
+import { sliceAudioBuffer } from 'audio/audio-slicer';
 
 export default class TrackSlice extends Component {
 	static propTypes = {
-		onCreate: PropTypes.func.isRequired
+		onCreate: PropTypes.func.isRequired,
+		source: PropTypes.shape({
+			buffer: PropTypes.shape({
+				duration: PropTypes.number
+			})
+		}) 
 	}
 
 	constructor(...args) {
 		super(...args);
-		this.createSlice = this.createSlice.bind(this);
-		this.preview = this.preview.bind(this);
-		this.stopPreview = this.stopPreview.bind(this);
+		this.sliceSource = getAudioSource();
 	}
 
-	createSlice() {
+	createSlice = () => {
 		this.props.onCreate();
 	}
 
-	preview() {
-
+	preview = () => {
+		let values = this.values;
+		sliceAudioBuffer(this.source.buffer, values[0], values[1])
+			.then(buffer => this.sliceSource.buffer = buffer)
+			.then(() => this.sliceSource.play())
+			.catch(error => console.log(error));
 	}
 
-	stopPreview() {
+	stopPreview = () => {
+		this.sliceSource.stop();
+	}
 
+	onChange = (value) => {
+		this.setState({values: value});
 	}
 
 	render() {
 		return (
-			<ReactSlider />
+			<div className="slider-container">
+				<ReactSlider 
+					defaultValue={[0, 100]} 
+					minDistance={10}
+					pearling
+					withBars 
+				/>
+			</div>
 		);
 	}
 }
