@@ -15,6 +15,9 @@ export default class TrackSlice extends Component {
 
 	constructor(...args) {
 		super(...args);
+		this.minValue = 0;
+		this.maxValue = Math.floor(this.props.source.buffer.duration);
+		this.state = {values: [this.minValue, this.maxValue]};
 		this.sliceSource = getAudioSource();
 	}
 
@@ -34,16 +37,19 @@ export default class TrackSlice extends Component {
 		this.sliceSource.stop();
 	}
 
-	onChange = (value) => {
-		this.setState({values: value});
+	onChange = (values) => {
+		console.log('updating values', values);
+		this.setState({values: values});
 	}
 
 	render() {
 		return (
 			<div className="slider-container">
 				<ReactSlider 
-					defaultValue={[0, 100]} 
-					minDistance={10}
+					value={this.state.values}
+					max={this.maxValue}
+					min={this.minValue}
+					onChange={this.onChange}
 					pearling
 					withBars 
 				/>
