@@ -18,18 +18,18 @@ export default class TrackSlice extends Component {
 		this.minValue = 0;
 		this.maxValue = Math.floor(this.props.source.buffer.duration);
 		this.state = {values: [this.minValue, this.maxValue]};
-		this.sliceSource = getAudioSource();
 	}
 
 	createSlice = () => {
-		this.props.onCreate();
+		this.props.onCreate(this.sliceSource);
 	}
 
 	preview = () => {
-		let values = this.values;
-		sliceAudioBuffer(this.source.buffer, values[0], values[1])
+		this.sliceSource = getAudioSource();
+		let values = this.state.values;
+		sliceAudioBuffer(this.props.source.buffer, values[0] * 1000, values[1] * 1000)
 			.then(buffer => this.sliceSource.buffer = buffer)
-			.then(() => this.sliceSource.play())
+			.then(() => this.sliceSource.start(0))
 			.catch(error => console.log(error));
 	}
 
@@ -38,21 +38,27 @@ export default class TrackSlice extends Component {
 	}
 
 	onChange = (values) => {
-		console.log('updating values', values);
+		//console.log('updating values', values);
 		this.setState({values: values});
 	}
 
 	render() {
-		return (
-			<div className="slider-container">
-				<ReactSlider 
-					value={this.state.values}
-					max={this.maxValue}
-					min={this.minValue}
-					onChange={this.onChange}
-					pearling
-					withBars 
-				/>
+		return (			
+			<div>
+				<button type="button" className="btn" onClick={this.preview}>{'Preview'}</button>
+				<button type="button" className="btn" onClick={this.stopPreview}>{'Stop'}</button>
+				<button type="button" className="btn" onClick={this.createSlice}>{'Slice'}</button>
+				<p>{`Start: ${this.state.values[0]} Stop: ${this.state.values[1]}`}</p>
+				<div className="slider-container">
+					<ReactSlider 
+						value={this.state.values}
+						max={this.maxValue}
+						min={this.minValue}
+						onChange={this.onChange}
+						pearling
+						withBars 
+					/>
+				</div>
 			</div>
 		);
 	}

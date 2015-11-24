@@ -53,10 +53,10 @@ export default class TrackListItem extends Component {
 					<h1>{this.props.filename} <small>{this.props.id}</small></h1>
 					<p>{this.props.title}</p>
 					<p>{this.props.artist}</p>
-					<button type="button" onClick={this.playTrack}>{'Play'}</button>
-					<button type="button" key="stop" onClick={this.stopTrack}>{'Stop'}</button>
-					<button type="button" key="unload" onClick={this.unloadTrack}>{'Unload'}</button>
-					<button type="button" onClick={this.removeTrack}>{'Remove'}</button>
+					<button type="button" className="btn" onClick={this.playTrack}>{'Play'}</button>
+					<button type="button" className="btn" key="stop" onClick={this.stopTrack}>{'Stop'}</button>
+					<button type="button" className="btn" key="unload" onClick={this.unloadTrack}>{'Unload'}</button>
+					<button type="button" className="btn" onClick={this.removeTrack}>{'Remove'}</button>
 					{this.isShowingSlice ? <TrackSlice onCreate={this.createSlice} source={this.props.source} /> : null}
 				</div>
 			);
@@ -66,8 +66,8 @@ export default class TrackListItem extends Component {
 					<h1>{this.props.filename} <small>{this.props.id}</small></h1>
 					<p>{this.props.title}</p>
 					<p>{this.props.artist}</p>
-					<button type="button" key="load" onClick={this.loadTrack}>{'Load'}</button>
-					<button type="button" onClick={this.removeTrack}>{'Remove'}</button>
+					<button type="button" className="btn" key="load" onClick={this.loadTrack}>{'Load'}</button>
+					<button type="button" className="btn" onClick={this.removeTrack}>{'Remove'}</button>
 				</div>
 			);
 		}
