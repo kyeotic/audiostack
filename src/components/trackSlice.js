@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactSlider from 'react-slider';
-import { getAudioSource } from 'audio/audio-context';
+import { ReusableAudioSourceNode } from 'audio/audio-source';
 import { sliceAudioBuffer } from 'audio/audio-slicer';
 
 export default class TrackSlice extends Component {
@@ -26,7 +26,7 @@ export default class TrackSlice extends Component {
 	}
 
 	createSliceSource() {
-		this.sliceSource = getAudioSource();
+		this.sliceSource = new ReusableAudioSourceNode();
 		let values = this.state.values;
 		return sliceAudioBuffer(this.props.source.buffer, values[0] * 1000, values[1] * 1000)
 			.then(buffer => this.sliceSource.buffer = buffer)
