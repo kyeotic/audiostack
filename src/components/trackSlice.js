@@ -21,15 +21,21 @@ export default class TrackSlice extends Component {
 	}
 
 	createSlice = () => {
-		this.props.onCreate(this.sliceSource);
+		this.createSliceSource()
+			.then(this.props.onCreate);
+	}
+
+	createSliceSource() {
+		this.sliceSource = getAudioSource();
+		let values = this.state.values;
+		return sliceAudioBuffer(this.props.source.buffer, values[0] * 1000, values[1] * 1000)
+			.then(buffer => this.sliceSource.buffer = buffer)
+			.then(() => this.sliceSource);
 	}
 
 	preview = () => {
-		this.sliceSource = getAudioSource();
-		let values = this.state.values;
-		sliceAudioBuffer(this.props.source.buffer, values[0] * 1000, values[1] * 1000)
-			.then(buffer => this.sliceSource.buffer = buffer)
-			.then(() => this.sliceSource.start(0))
+		this.createSliceSource()
+			.then(slice => slice.start(0))
 			.catch(error => console.log(error));
 	}
 
@@ -54,6 +60,7 @@ export default class TrackSlice extends Component {
 						value={this.state.values}
 						max={this.maxValue}
 						min={this.minValue}
+						minDistance={1}
 						onChange={this.onChange}
 						pearling
 						withBars 

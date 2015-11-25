@@ -1,6 +1,13 @@
 App Goals
 ===
 
+Current Tasks
+===
+* Allow track slicing
+* Create re-usable (re-playable) wrapper for AudioBufferSourceNode
+* Figure out why audio contexts are maximg out
+
+
 
 Components
 
