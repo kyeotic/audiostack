@@ -9,7 +9,7 @@ class ReusableAudioSourceNode {
 	start(startTime = 0) {
 		//Do not allow multiple sources to play at the same time
 		if (this.source) return;
-		this.source = _sourceFromAudioBuffer(this.buffer);
+		this.source = createAudioBufferSourceNode(this.buffer);
 		this.source.start(startTime);
 	}
 
@@ -20,7 +20,7 @@ class ReusableAudioSourceNode {
 }
 
 
-function _sourceFromAudioBuffer(audioBuffer) {
+function createAudioBufferSourceNode(audioBuffer) {
 	var source = audioContext.createBufferSource();
 	source.buffer = audioBuffer;
 	source.connect(audioContext.destination);
