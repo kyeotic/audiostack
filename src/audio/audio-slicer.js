@@ -38,23 +38,23 @@ function AudioBufferSlice(buffer, begin, end, callback) {
     var startOffset = rate * begin;
     var endOffset = rate * end;
     var frameCount = endOffset - startOffset;
-    var newArrayBuffer;
+    var slicedArrayBuffer;
 
     try {
 
-      newArrayBuffer = audioContext.createBuffer(channels, endOffset, rate);
+      slicedArrayBuffer = audioContext.createBuffer(channels, endOffset - startOffset, rate);
       var anotherArray = new Float32Array(frameCount);
       var offset = 0;
 
       for (var channel = 0; channel < channels; channel++) {
         buffer.copyFromChannel(anotherArray, channel, startOffset);
-        newArrayBuffer.copyToChannel(anotherArray, channel, offset);
+        slicedArrayBuffer.copyToChannel(anotherArray, channel, offset);
       }
     } catch(e) {
       error = e;
     }
 
-    callback(error, newArrayBuffer);
+    callback(error, slicedArrayBuffer);
   }
 
 export function sliceAudioBuffer(audioBuffer, start, finish) {
