@@ -21,7 +21,7 @@
   "jspm": {
     "configFile": "jspm.config.js",
     "dependencies": {
-      "audiobuffer-slice": "npm:audiobuffer-slice@^0.0.2",
+      "audiobuffer-slice": "npm:audiobuffer-slice@^0.0.4",
       "core-js": "npm:core-js@^1.1.4",
       "id3js": "npm:id3js@^1.1.3",
       "immutable": "npm:immutable@^3.7.5",
