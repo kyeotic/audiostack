@@ -1,5 +1,4 @@
 import shortId from 'shortid';
-import { sourceFromBuffer } from 'audio/audio-source';
 import * as store from 'audio/audio-store';
 import actionCreator from './actionCreator';
 
@@ -14,10 +13,10 @@ export let hideTrackSlice = actionCreator(HIDE_TRACK_SLICE);
 let createSliceStart = actionCreator(CREATE_SLICE_START, trackId => ({trackId}));
 let createSliceSuccess = actionCreator(CREATE_SLICE_SUCCESS, trackId => ({trackId}));
 
-export function createSlice(trackId, start, length) {
+export function createSlice(slice) {
 	return (dispatch, getState) => {
-		let track = getState().tracksById[trackId];
-		dispatch(createSliceStart(trackId));
+		dispatch(createSliceStart(slice.id));
+		
 	}
 }
 

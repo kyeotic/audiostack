@@ -3,6 +3,7 @@ import localforage from 'localforage';
 
 const trackStore = localforage.createInstance({name: 'tracks'});
 const trackBufferStore = localforage.createInstance({name: 'buffers'});
+const sliceStore = localforage.createInstance({name: 'slices'});
 
 export function saveTrack(track) {
 	let trackToSave = Object.assign({}, track);
@@ -51,4 +52,26 @@ export function loadAllTracks() {
 				});
 			return Promise.resolve(track);
 		})))
+}
+
+export function saveSlice(slice) {
+	return sliceStore.setItem(slice.id, slice)
+		.then(() => slice);
+}
+
+export function loadSlice(sliceId) {
+	return sliceStore.getItem(sliceId);
+}
+
+export function removeSlice(sliceId) {
+	return sliceStore.removeItem(sliceId);
+}
+
+export function getSliceIds() {
+	return sliceStore.keys();
+}
+
+export function loadAllSlices() {
+	return getSliceIds()
+		.then(keys => Promise.all(keys.map(loadSlice)));
 }
