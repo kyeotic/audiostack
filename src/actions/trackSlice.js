@@ -10,13 +10,13 @@ export const CREATE_SLICE_SUCCESS = 'CREATE_SLICE_SUCCESS';
 export let showTrackSlice = actionCreator(SHOW_TRACK_SLICE);
 export let hideTrackSlice = actionCreator(HIDE_TRACK_SLICE);
 
-let createSliceStart = actionCreator(CREATE_SLICE_START, trackId => ({trackId}));
-let createSliceSuccess = actionCreator(CREATE_SLICE_SUCCESS, trackId => ({trackId}));
+let createSliceStart = actionCreator(CREATE_SLICE_START, slice => slice);
+let createSliceSuccess = actionCreator(CREATE_SLICE_SUCCESS, sliceId => ({sliceId}));
 
 export function createSlice(slice) {
 	return (dispatch, getState) => {
-		dispatch(createSliceStart(slice.id));
-		
+		dispatch(createSliceStart(slice));
+		return store.saveSlice(slice)
+			.then(slice => dispatch(createSliceSuccess(slice.id)));
 	}
 }
-

@@ -6,10 +6,10 @@ import TrackAdd from 'components/trackAdd';
 import TrackList from 'components/trackList';
 
 @connect(state => ({
-		tracks: Object.keys(state.tracksById).map(key => {
+		tracks: Object.keys(state.tracks).map(key => {
 			return {
 				id: key,
-				...state.tracksById[key]
+				...state.tracks[key]
 			};
 		})
 	}),

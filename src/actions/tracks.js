@@ -57,7 +57,7 @@ let loadTrackSuccess = actionCreator(LOAD_TRACK_SOURCE_SUCCESS,
 
 export function loadTrackSource(trackId) {
 	return (dispatch, getState) => {
-		const track = getState().tracksById[trackId];
+		const track = getState().tracks[trackId];
 		dispatch(loadTrack(trackId));
 		return store.loadTrackBuffer(trackId)
 			.then(sourceFromBuffer)
@@ -74,7 +74,7 @@ let unloadTackSuccess = actionCreator(UNLOAD_TRACK_SOURCE_SUCCESS);
 export function unloadTrackSource(trackId) {
 	return (dispatch, getState) => {
 		dispatch(unloadTrack(trackId));
-		let unloadedTrack = Object.assign({}, getState().tracksById[trackId]);
+		let unloadedTrack = Object.assign({}, getState().tracks[trackId]);
 		unloadedTrack.isLoaded = false;
 		return store.saveTrack(unloadedTrack)
 			.then(() => dispatch(unloadTackSuccess(trackId)));

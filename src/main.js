@@ -12,7 +12,7 @@ render(<Splash />, appRoot);
 
 loadAllTracks().then(tracks => {
 	const store = configureStore({
-		tracksById: tracks.reduce((obj, track) => {
+		tracks: tracks.reduce((obj, track) => {
 			obj[track.id] = track;
 			return obj
 		}, {})
