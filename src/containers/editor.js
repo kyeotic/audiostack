@@ -31,8 +31,8 @@ export default class Editor extends Component {
 	render() {
 		const { loadSongFile, removeTrack, tracks, loadTrackSource, unloadTrackSource } = this.props;
 
-		let fill = Array.apply(null, new Array(100))
-					.map((i, n) => <p key={n}>{n}</p>);
+		// let fill = Array.apply(null, new Array(100))
+		// 			.map((i, n) => <p key={n}>{n}</p>);
 
 		return (
 			<div className="editor-main">
@@ -48,7 +48,6 @@ export default class Editor extends Component {
 				<div className="editor-deck">
 					<div className="stage">
 						<p>{'Stage'}</p>
-						{fill}
 					</div>
 					<div className="slice-deck">
 						<p>{'Slice Deck'}</p>
